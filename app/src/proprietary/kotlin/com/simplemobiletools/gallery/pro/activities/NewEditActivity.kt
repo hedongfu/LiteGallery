@@ -1,4 +1,4 @@
-package com.simplemobiletools.gallery.pro.activities
+package com.herman.gallery.activities
 
 import android.annotation.TargetApi
 import android.app.Activity
@@ -17,10 +17,10 @@ import com.simplemobiletools.commons.helpers.REAL_FILE_PATH
 import com.simplemobiletools.commons.helpers.isNougatPlus
 import com.simplemobiletools.commons.interfaces.CopyMoveListener
 import com.simplemobiletools.commons.models.FileDirItem
-import com.simplemobiletools.gallery.pro.R
-import com.simplemobiletools.gallery.pro.dialogs.SaveAsDialog
-import com.simplemobiletools.gallery.pro.extensions.config
-import com.simplemobiletools.gallery.pro.extensions.fixDateTaken
+import com.herman.gallery.R
+import com.herman.gallery.dialogs.SaveAsDialog
+import com.herman.gallery.extensions.config
+import com.herman.gallery.extensions.fixDateTaken
 import ly.img.android.pesdk.PhotoEditorSettingsList
 import ly.img.android.pesdk.assets.filter.basic.FilterPackBasic
 import ly.img.android.pesdk.assets.font.basic.FontPackBasic
@@ -122,7 +122,7 @@ class NewEditActivity : SimpleActivity() {
                 toast(R.string.image_editing_cancelled)
                 finish()
             } else {
-                // the image is stored at the internal app storage first, for example /data/user/0/com.simplemobiletools.gallery.pro/cache/editor/IMG_20191207_183023.jpg
+                // the image is stored at the internal app storage first, for example /data/user/0/com.herman.gallery/cache/editor/IMG_20191207_183023.jpg
                 // first we rename it to the desired name, then move
                 val sourceString = Uri.decode(sourceImageUri.toString())?.toString() ?: ""
                 val source = if (sourceString.isEmpty() || sourceString.startsWith("content")) {
