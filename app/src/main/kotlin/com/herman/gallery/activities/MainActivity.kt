@@ -13,22 +13,18 @@ import android.provider.MediaStore.Images
 import android.provider.MediaStore.Video
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.simplemobiletools.commons.dialogs.ConfirmationDialog
-import com.simplemobiletools.commons.dialogs.CreateNewFolderDialog
-import com.simplemobiletools.commons.dialogs.FilePickerDialog
-import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.*
-import com.simplemobiletools.commons.models.FileDirItem
-import com.simplemobiletools.commons.models.Release
-import com.simplemobiletools.commons.views.MyGridLayoutManager
-import com.simplemobiletools.commons.views.MyRecyclerView
+import com.facebook.ads.AdSettings
+import com.facebook.ads.AdSize
+import com.facebook.ads.AdView
 import com.herman.gallery.BuildConfig
 import com.herman.gallery.R
 import com.herman.gallery.adapters.DirectoryAdapter
@@ -42,6 +38,14 @@ import com.herman.gallery.interfaces.DirectoryOperationsListener
 import com.herman.gallery.jobs.NewPhotoFetcher
 import com.herman.gallery.models.Directory
 import com.herman.gallery.models.Medium
+import com.simplemobiletools.commons.dialogs.CreateNewFolderDialog
+import com.simplemobiletools.commons.dialogs.FilePickerDialog
+import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.*
+import com.simplemobiletools.commons.models.FileDirItem
+import com.simplemobiletools.commons.models.Release
+import com.simplemobiletools.commons.views.MyGridLayoutManager
+import com.simplemobiletools.commons.views.MyRecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.*
 import java.util.*
@@ -87,6 +91,8 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
     private var mStoredShowInfoBubble = true
     private var mStoredTextColor = 0
     private var mStoredPrimaryColor = 0
+
+    private var adView: AdView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -161,6 +167,34 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
                 finish()
             }
         }
+
+        // Instantiate an AdView object.
+        // NOTE: The placement ID from the Facebook Monetization Manager identifies your App.
+        // To get test ads, add IMG_16_9_APP_INSTALL# to your placement id. Remove this when your app is ready to serve real ads.
+
+
+        // Instantiate an AdView object.
+        // NOTE: The placement ID from the Facebook Monetization Manager identifies your App.
+        // To get test ads, add IMG_16_9_APP_INSTALL# to your placement id. Remove this when your app is ready to serve real ads.
+        //adView = AdView(this, "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID", AdSize.BANNER_HEIGHT_50)
+        adView = AdView(this, "1144497879231125_1144498252564421", AdSize.BANNER_HEIGHT_50)
+
+        // Find the Ad Container
+
+        // Find the Ad Container
+        val adContainer: LinearLayout = findViewById<View>(R.id.banner_container) as LinearLayout
+
+        // Add the ad view to your activity layout
+
+        // Add the ad view to your activity layout
+        adContainer.addView(adView)
+
+        AdSettings.addTestDevice("49692597-21d3-40ff-b726-564786788069")
+
+        // Request an ad
+
+        // Request an ad
+        adView!!.loadAd()
     }
 
     override fun onStart() {
@@ -252,6 +286,9 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
     }
 
     override fun onDestroy() {
+        if (adView != null) {
+            adView!!.destroy()
+        }
         super.onDestroy()
         if (!isChangingConfigurations) {
             config.temporarilyShowHidden = false
@@ -318,7 +355,7 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
             R.id.increase_column_count -> increaseColumnCount()
             R.id.reduce_column_count -> reduceColumnCount()
             R.id.settings -> launchSettings()
-            R.id.about -> launchAbout()
+            //R.id.about -> launchAbout()
             else -> return super.onOptionsItemSelected(item)
         }
         return true
@@ -440,10 +477,10 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
 
     private fun tryLoadGallery() {
         if (hasPermission(PERMISSION_WRITE_STORAGE)) {
-            if (!config.wasUpgradedFromFreeShown && isPackageInstalled("com.herman.gallery")) {
+            /*if (!config.wasUpgradedFromFreeShown && isPackageInstalled("com.herman.gallery")) {
                 ConfirmationDialog(this, "", R.string.upgraded_from_free, R.string.ok, 0) {}
                 config.wasUpgradedFromFreeShown = true
-            }
+            }*/
 
             checkOTGPath()
             checkDefaultSpamFolders()

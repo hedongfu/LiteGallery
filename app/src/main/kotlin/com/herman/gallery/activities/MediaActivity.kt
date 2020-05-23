@@ -268,7 +268,7 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
             R.id.reduce_column_count -> reduceColumnCount()
             R.id.slideshow -> startSlideshow()
             R.id.settings -> launchSettings()
-            R.id.about -> launchAbout()
+            //R.id.about -> launchAbout()
             else -> return super.onOptionsItemSelected(item)
         }
         return true

@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.herman.gallery"
-    android:installLocation="auto">
+    android:installLocation="auto"
+    android:usesCleartextTraffic="true">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.SET_WALLPAPER"/>
@@ -14,6 +15,7 @@
     <uses-permission
         android:name="android.permission.CAMERA"
         tools:node="remove"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-sdk
         tools:overrideLibrary="com.google.vr.widgets.common, com.google.vr.sdk.widgets.pano"/>
@@ -25,7 +27,7 @@
     <application
         android:name=".App"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_launcher_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true"
@@ -33,13 +35,30 @@
         android:theme="@style/AppTheme"
         tools:replace="android:label">
 
+        <!--
         <activity
             android:name=".activities.SplashActivity"
             android:theme="@style/SplashTheme"/>
 
         <activity
+            android:name=".activities.SplashActivity"
+            android:enabled="false"
+            android:icon="@mipmap/ic_launcher"
+            android:roundIcon="@mipmap/ic_launcher"
+            android:targetActivity=".activities.SplashActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        -->
+
+        <activity
             android:name=".activities.MainActivity"
-            android:resizeableActivity="true">
+            android:resizeableActivity="true"
+            android:icon="@mipmap/ic_launcher"
+            android:roundIcon="@mipmap/ic_launcher">
 
             <meta-data
                 android:name="android.app.default_searchable"
@@ -69,6 +88,11 @@
                 <data android:mimeType="video/*"/>
                 <data android:mimeType="vnd.android.cursor.dir/image"/>
                 <data android:mimeType="vnd.android.cursor.dir/video"/>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
@@ -300,6 +324,7 @@
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"/>
 
+        <!--
         <activity-alias
             android:name=".activities.SplashActivity.Red"
             android:enabled="false"
@@ -545,5 +570,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity-alias>
+
+        -->
+
     </application>
 </manifest>

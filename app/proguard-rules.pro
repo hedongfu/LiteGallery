@@ -1,4 +1,5 @@
 -keep class com.simplemobiletools.** { *; }
+-keep class com.herman.** { *; }
 -dontwarn android.graphics.Canvas
 -dontwarn com.simplemobiletools.**
 -dontwarn org.apache.**
